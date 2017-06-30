@@ -8,26 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		305AA4031F03D22400F2828D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AA4021F03D22400F2828D /* AppDelegate.swift */; };
-		305AA4051F03D22400F2828D /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4041F03D22400F2828D /* GameScene.sks */; };
-		305AA4071F03D22400F2828D /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4061F03D22400F2828D /* Actions.sks */; };
 		305AA4091F03D22400F2828D /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AA4081F03D22400F2828D /* GameScene.swift */; };
 		305AA40B1F03D22400F2828D /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AA40A1F03D22400F2828D /* GameViewController.swift */; };
 		305AA40E1F03D22400F2828D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305AA40C1F03D22400F2828D /* Main.storyboard */; };
-		305AA4101F03D22400F2828D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305AA40F1F03D22400F2828D /* Assets.xcassets */; };
 		305AA4131F03D22400F2828D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4111F03D22400F2828D /* LaunchScreen.storyboard */; };
+		305AA4221F0538F100F2828D /* BackgroundEffect.sks in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4211F0538F100F2828D /* BackgroundEffect.sks */; };
+		305AA4241F057D7B00F2828D /* CGSize+center.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AA4231F057D7B00F2828D /* CGSize+center.swift */; };
+		305AA42A1F0581C700F2828D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4291F05806200F2828D /* Assets.xcassets */; };
+		3061E3321F0699B10065225C /* ExplosionSound.wav in Resources */ = {isa = PBXBuildFile; fileRef = 308E16F01F0697D4006C5B2B /* ExplosionSound.wav */; };
+		3061E3331F0699B40065225C /* BackgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 308E16EF1F0697D4006C5B2B /* BackgroundMusic.mp3 */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		305AA3FF1F03D22400F2828D /* SpaceShooter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpaceShooter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		305AA4021F03D22400F2828D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		305AA4041F03D22400F2828D /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
-		305AA4061F03D22400F2828D /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		305AA4081F03D22400F2828D /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		305AA40A1F03D22400F2828D /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		305AA40D1F03D22400F2828D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		305AA40F1F03D22400F2828D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		305AA4121F03D22400F2828D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		305AA4141F03D22400F2828D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		305AA4211F0538F100F2828D /* BackgroundEffect.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = BackgroundEffect.sks; sourceTree = "<group>"; };
+		305AA4231F057D7B00F2828D /* CGSize+center.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGSize+center.swift"; sourceTree = "<group>"; };
+		305AA4291F05806200F2828D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		308E16EF1F0697D4006C5B2B /* BackgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BackgroundMusic.mp3; sourceTree = "<group>"; };
+		308E16F01F0697D4006C5B2B /* ExplosionSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ExplosionSound.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,16 +65,26 @@
 			isa = PBXGroup;
 			children = (
 				305AA4021F03D22400F2828D /* AppDelegate.swift */,
-				305AA4041F03D22400F2828D /* GameScene.sks */,
-				305AA4061F03D22400F2828D /* Actions.sks */,
+				305AA4231F057D7B00F2828D /* CGSize+center.swift */,
 				305AA4081F03D22400F2828D /* GameScene.swift */,
 				305AA40A1F03D22400F2828D /* GameViewController.swift */,
+				305AA4211F0538F100F2828D /* BackgroundEffect.sks */,
+				305AA4291F05806200F2828D /* Assets.xcassets */,
 				305AA40C1F03D22400F2828D /* Main.storyboard */,
-				305AA40F1F03D22400F2828D /* Assets.xcassets */,
 				305AA4111F03D22400F2828D /* LaunchScreen.storyboard */,
 				305AA4141F03D22400F2828D /* Info.plist */,
+				305AA41E1F05375700F2828D /* Audio */,
 			);
 			path = SpaceShooter;
+			sourceTree = "<group>";
+		};
+		305AA41E1F05375700F2828D /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				308E16F01F0697D4006C5B2B /* ExplosionSound.wav */,
+				308E16EF1F0697D4006C5B2B /* BackgroundMusic.mp3 */,
+			);
+			path = Audio;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -131,11 +145,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3061E3331F0699B40065225C /* BackgroundMusic.mp3 in Resources */,
+				305AA4221F0538F100F2828D /* BackgroundEffect.sks in Resources */,
 				305AA40E1F03D22400F2828D /* Main.storyboard in Resources */,
-				305AA4051F03D22400F2828D /* GameScene.sks in Resources */,
-				305AA4101F03D22400F2828D /* Assets.xcassets in Resources */,
+				3061E3321F0699B10065225C /* ExplosionSound.wav in Resources */,
+				305AA42A1F0581C700F2828D /* Assets.xcassets in Resources */,
 				305AA4131F03D22400F2828D /* LaunchScreen.storyboard in Resources */,
-				305AA4071F03D22400F2828D /* Actions.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -149,6 +164,7 @@
 				305AA4091F03D22400F2828D /* GameScene.swift in Sources */,
 				305AA40B1F03D22400F2828D /* GameViewController.swift in Sources */,
 				305AA4031F03D22400F2828D /* AppDelegate.swift in Sources */,
+				305AA4241F057D7B00F2828D /* CGSize+center.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,7 +236,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -269,7 +285,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -324,6 +340,7 @@
 				305AA4191F03D22400F2828D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
