@@ -98,7 +98,7 @@ extension GameScene: SKPhysicsContactDelegate {
         explodeSpriteNode(spaceship) {
             let gameOverScene = GameOverScene(size: self.size)
             gameOverScene.score = self.score
-            let transition = SKTransition.crossFade(withDuration: 1)
+            let transition = SKTransition.crossFade(withDuration: 0.5)
             self.view?.presentScene(gameOverScene, transition: transition)
         }
     }
