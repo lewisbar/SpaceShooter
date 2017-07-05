@@ -19,6 +19,7 @@ class GameOverScene: SKScene {
         let backgroundEffect = SKEmitterNode(fileNamed: "BackgroundEffect")!
         backgroundEffect.position = self.size.center
         backgroundEffect.zPosition = 1
+        background.size = self.size
         self.addChild(backgroundEffect)
         
         let gameOverLabel = SKLabelNode(text: "Game Over")
