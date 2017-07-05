@@ -105,15 +105,18 @@ extension GameScene: SKPhysicsContactDelegate {
     
     func explodeSpriteNode(_ node: SKSpriteNode, completion: @escaping ()->() = {}) {
         self.run(SKAction.playSoundFileNamed("ExplosionSound.wav", waitForCompletion: false))
-        let explosion = SKEmitterNode(fileNamed: "Explosion")
-        explosion?.zPosition = 4
-        explosion?.position = node.position
-        explosion?.particleScale = node.size.width / 200
-        explosion?.setScale(node.size.width / 25)
-        self.addChild(explosion!)
+        let explosion = SKEmitterNode(fileNamed: "Explosion")!
+        setupNode(explosion, name: "explosion")
+        
+        //explosion?.zPosition = 4
+        explosion.position = node.position
+        explosion.particleScale = node.size.width / 200
+        explosion.setScale(node.size.width / 25)
+        self.addChild(explosion)
+        
         node.removeFromParent()
         self.run(SKAction.wait(forDuration: 1)) {
-            explosion?.removeFromParent()
+            explosion.removeFromParent()
             completion()
         }
     }

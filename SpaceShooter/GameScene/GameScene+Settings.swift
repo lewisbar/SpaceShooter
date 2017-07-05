@@ -45,6 +45,7 @@ extension GameScene {
         case "fireBall": return 2
         case "heart": return 3
         case "spaceship": return 3
+        case "explosion": return 4
         case "pauseBackground": return 30
         case "pauseLabel": return 31
         default: return nil
