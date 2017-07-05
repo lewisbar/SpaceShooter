@@ -12,6 +12,15 @@ class GameOverScene: SKScene {
     var score = 0
     
     override func didMove(to view: SKView) {
+        let background = SKSpriteNode(imageNamed: "BackgroundImage.jpg")
+        background.position = self.size.center
+        self.addChild(background)
+        
+        let backgroundEffect = SKEmitterNode(fileNamed: "BackgroundEffect")!
+        backgroundEffect.position = self.size.center
+        backgroundEffect.zPosition = 1
+        self.addChild(backgroundEffect)
+        
         let gameOverLabel = SKLabelNode(text: "Game Over")
         gameOverLabel.fontColor = .white
         gameOverLabel.fontSize = self.size.height / 17.5
