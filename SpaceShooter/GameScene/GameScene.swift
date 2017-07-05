@@ -70,15 +70,15 @@ extension GameScene: SKPhysicsContactDelegate {
         if bodyBitMasks.contains(categoryBitMask(forNodeWithName: "fireBall")!),
             bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
             
-            // Explosion
-            let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node
-            explodeSpriteNode(explodingNode as! SKSpriteNode)
-
+            // Explode enemy and fireBall
+            explodeSpriteNode(contact.bodyA.node as! SKSpriteNode)
+            explodeSpriteNode(contact.bodyB.node as! SKSpriteNode)
+            
             score += 1
         } else if bodyBitMasks.contains(categoryBitMask(forNodeWithName: "spaceship")!),
             bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
             
-            // Explosion
+            // Explode enemy
             let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node
             explodeSpriteNode(explodingNode as! SKSpriteNode)
             
