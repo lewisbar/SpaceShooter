@@ -23,8 +23,6 @@
 		30777D661F0BA6410087218D /* SpaceShooterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30777D651F0BA6410087218D /* SpaceShooterTests.swift */; };
 		30777D6E1F0BBFE10087218D /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 30777D6D1F0BBFE10087218D /* Explosion.sks */; };
 		30777D701F0C170E0087218D /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30777D6F1F0C170E0087218D /* GameOverScene.swift */; };
-		30777D771F0CF21A0087218D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4141F03D22400F2828D /* Info.plist */; };
-		30777D781F0CF2380087218D /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 30777D671F0BA6410087218D /* Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -251,7 +249,6 @@
 			files = (
 				3061E3331F0699B40065225C /* BackgroundMusic.mp3 in Resources */,
 				305AA4221F0538F100F2828D /* BackgroundEffect.sks in Resources */,
-				30777D771F0CF21A0087218D /* Info.plist in Resources */,
 				305AA40E1F03D22400F2828D /* Main.storyboard in Resources */,
 				3061E3321F0699B10065225C /* ExplosionSound.wav in Resources */,
 				305AA42A1F0581C700F2828D /* Assets.xcassets in Resources */,
@@ -264,7 +261,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30777D781F0CF2380087218D /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
