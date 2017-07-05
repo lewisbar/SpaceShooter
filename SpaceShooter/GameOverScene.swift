@@ -9,6 +9,8 @@
 import SpriteKit
 
 class GameOverScene: SKScene {
+    var score = 0
+    
     override func didMove(to view: SKView) {
         let gameOverLabel = SKLabelNode(text: "Game Over")
         gameOverLabel.fontColor = .white
@@ -16,6 +18,13 @@ class GameOverScene: SKScene {
         gameOverLabel.zPosition = 1
         gameOverLabel.position = self.size.center
         self.addChild(gameOverLabel)
+        
+        let scoreLabel = SKLabelNode(text: "Score: \(score)")
+        scoreLabel.fontColor = .white
+        scoreLabel.fontSize = self.size.height / 25
+        scoreLabel.zPosition = 1
+        scoreLabel.position = CGPoint(x: self.size.width / 2, y: gameOverLabel.position.y - gameOverLabel.fontSize)
+        self.addChild(scoreLabel)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
