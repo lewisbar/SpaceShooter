@@ -72,8 +72,8 @@ extension GameScene: SKPhysicsContactDelegate {
             bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
             
             // Explode enemy and fireBall
-            explodeSpriteNode(contact.bodyA.node as! SKSpriteNode)
-            explodeSpriteNode(contact.bodyB.node as! SKSpriteNode)
+            makeSpriteNodeExplode(contact.bodyA.node as! SKSpriteNode)
+            makeSpriteNodeExplode(contact.bodyB.node as! SKSpriteNode)
             
             score += 1
         } else if bodyBitMasks.contains(categoryBitMask(forNodeWithName: "spaceship")!),
@@ -81,12 +81,17 @@ extension GameScene: SKPhysicsContactDelegate {
             
             // Explode enemy
             let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node
-            explodeSpriteNode(explodingNode as! SKSpriteNode)
+            makeSpriteNodeExplode(explodingNode as! SKSpriteNode)
             
             liveArray.popLast()?.removeFromParent()
-            spaceship.run(SKAction.repeat(SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]), count: 10))
+            
             if liveArray.isEmpty {
                 gameOver()
+            } else {
+                makeSpriteNodeFlash(spaceship)
+                for heart in liveArray {
+                    makeSpriteNodeFlash(heart)
+                }
             }
         }
     }
@@ -96,7 +101,7 @@ extension GameScene: SKPhysicsContactDelegate {
         timer2.invalidate()
         musicPlayer?.stop()
         
-        explodeSpriteNode(spaceship) {
+        makeSpriteNodeExplode(spaceship) {
             let gameOverScene = GameOverScene(size: self.size)
             gameOverScene.score = self.score
             let transition = SKTransition.crossFade(withDuration: 0.5)
@@ -104,7 +109,7 @@ extension GameScene: SKPhysicsContactDelegate {
         }
     }
     
-    func explodeSpriteNode(_ node: SKSpriteNode, completion: @escaping ()->() = {}) {
+    func makeSpriteNodeExplode(_ node: SKSpriteNode, completion: @escaping ()->() = {}) {
         self.run(SKAction.playSoundFileNamed("ExplosionSound.wav", waitForCompletion: false))
         let explosion = SKEmitterNode(fileNamed: "Explosion")!
         setupNode(explosion, name: "explosion")
@@ -118,5 +123,9 @@ extension GameScene: SKPhysicsContactDelegate {
             explosion.removeFromParent()
             completion()
         }
+    }
+    
+    func makeSpriteNodeFlash(_ node: SKSpriteNode) {
+        node.run(SKAction.repeat(SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]), count: 10))
     }
 }
