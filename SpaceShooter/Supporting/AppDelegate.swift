@@ -8,6 +8,8 @@
 
 import UIKit
 
+// TODO: Deal with interruptions
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
