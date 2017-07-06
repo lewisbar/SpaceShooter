@@ -80,7 +80,7 @@ extension GameScene: SKPhysicsContactDelegate {
             bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
             
             // Explode enemy
-            let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node
+            guard let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }   // The method is called once for every contact point, but all of the below should happen only once
             makeSpriteNodeExplode(explodingNode as! SKSpriteNode)
             
             liveArray.popLast()?.removeFromParent()
