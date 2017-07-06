@@ -12,7 +12,8 @@ import AVFoundation
 // MARK: - Properties
 class GameScene: SKScene {
     // Nodes
-    let background = SKSpriteNode(imageNamed: "BackgroundImage.jpg")
+    let background = SKSpriteNode(imageNamed: "BackgroundImage")
+    let background2 = SKSpriteNode(imageNamed: "BackgroundImage")
     let backgroundEffect = SKEmitterNode(fileNamed: "BackgroundEffect")!
     let spaceship = SKSpriteNode(imageNamed: "Spaceship")
     
@@ -56,7 +57,7 @@ extension GameScene {
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         for touch in touches {
             let touchPosition = touch.location(in: self)
-            spaceship.position.x = touchPosition.x
+            spaceship.position = CGPoint(x: touchPosition.x, y: touchPosition.y + self.size.height * 0.07)
         }
     }
 }
@@ -107,8 +108,6 @@ extension GameScene: SKPhysicsContactDelegate {
         self.run(SKAction.playSoundFileNamed("ExplosionSound.wav", waitForCompletion: false))
         let explosion = SKEmitterNode(fileNamed: "Explosion")!
         setupNode(explosion, name: "explosion")
-        
-        //explosion?.zPosition = 4
         explosion.position = node.position
         explosion.particleScale = node.size.width / 200
         explosion.setScale(node.size.width / 25)

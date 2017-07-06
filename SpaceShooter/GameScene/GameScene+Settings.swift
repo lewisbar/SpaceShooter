@@ -12,6 +12,7 @@ extension GameScene {
     func startPosition(forNodeWithName name: String) -> CGPoint? {
         switch name {
         case "background": return self.size.center
+        case "background2": return CGPoint(x: self.size.center.x, y: self.size.height * 1.5)
         case "backgroundEffect": return self.size.center
         case "scoreLabel" : return self.size.center
         case "enemy":
@@ -39,13 +40,14 @@ extension GameScene {
     func zPosition(forNodeWithName name: String) -> CGFloat? {
         switch name {
         case "background": return 0
+        case "background2": return 0
         case "backgroundEffect": return 1
         case "scoreLabel" : return 1
         case "enemy": return 2
         case "fireBall": return 2
-        case "heart": return 3
         case "spaceship": return 3
         case "explosion": return 4
+        case "heart1", "heart2", "heart3": return 5
         case "pauseBackground": return 30
         case "pauseLabel": return 31
         default: return nil

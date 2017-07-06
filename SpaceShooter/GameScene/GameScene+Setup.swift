@@ -20,6 +20,10 @@ extension GameScene {
         background.size = self.size
         self.addChild(background)
         
+        setupNode(background2, name: "background2")
+        background2.size = self.size
+        self.addChild(background2)
+        
         setupNode(backgroundEffect, name: "backgroundEffect")
         self.addChild(backgroundEffect)
         
@@ -56,7 +60,17 @@ extension GameScene {
         scoreLabel.fontColor = .white
         scoreLabel.fontSize = self.size.height / 17.5
         self.addChild(scoreLabel)
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        background.position.y -= 5
+        background2.position.y -= 5
         
-        //spaceship.physicsBody?.categoryBitMask = 0b1
+        if background.position.y <= -(background.size.height / 2) {
+            background.position.y = background2.position.y + background2.size.height / 2 + background.size.height / 2
+        }
+        if background2.position.y <= -(background2.size.height / 2) {
+            background2.position.y = background.position.y + background.size.height / 2 + background2.size.height / 2
+        }
     }
 }
