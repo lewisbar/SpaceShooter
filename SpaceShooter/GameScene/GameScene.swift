@@ -89,6 +89,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 gameOver()
             } else {
                 makeSpriteNodeFlash(spaceship)
+                // TODO: Spaceship should be invulnerable while flashing
                 for heart in liveArray {
                     makeSpriteNodeFlash(heart)
                 }
