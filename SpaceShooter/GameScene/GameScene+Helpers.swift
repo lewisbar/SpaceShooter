@@ -81,7 +81,7 @@ extension GameScene {
         } catch {
             print("Music player can't be initialized")
         }
-        musicPlayer?.numberOfLoops = 0
+        musicPlayer?.numberOfLoops = -1
         musicPlayer?.prepareToPlay()
     }
     
