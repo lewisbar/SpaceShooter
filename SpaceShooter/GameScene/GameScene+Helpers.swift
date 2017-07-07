@@ -44,10 +44,11 @@ extension GameScene {
         // Action
         let moveDown = SKAction.moveTo(y: -enemy.size.height, duration: 3)
         let delete = SKAction.removeFromParent()
+        
         enemy.run(SKAction.sequence([moveDown, delete]))
     }
     
-    @objc func startSpaceshipFire() {
+    @objc func shootFireBall() {
         let fireBall = SKSpriteNode(imageNamed: "Sternschuss")
         setupNode(fireBall, name: "fireBall")
         self.addChild(fireBall)

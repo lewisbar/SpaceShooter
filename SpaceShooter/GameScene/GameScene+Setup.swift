@@ -53,7 +53,7 @@ extension GameScene {
         addLives(3)
         
         // Shoot
-        startSpaceshipFire()
+        shootFireBall()
         
         // Score Label
         setupNode(scoreLabel, name: "scoreLabel")

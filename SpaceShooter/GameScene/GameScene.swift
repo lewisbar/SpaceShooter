@@ -35,6 +35,16 @@ class GameScene: SKScene {
         }
     }
     var scoreLabel = SKLabelNode()
+    
+    override var isPaused: Bool {
+        didSet {
+            if isPaused, oldValue == false {
+                stopTimers()
+            } else if !isPaused, oldValue == true {
+                startTimers()
+            }
+        }
+    }
 }
 
 // MARK: - Touches
@@ -49,8 +59,7 @@ extension GameScene {
             pauseLabel?.removeFromParent()
             musicPlayer?.play()
             
-            timer1 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(startSpaceshipFire), userInfo: nil, repeats: true)
-            timer2 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addEnemy), userInfo: nil, repeats: true)
+            // startTimers()
         }
     }
     
@@ -59,6 +68,16 @@ extension GameScene {
             let touchPosition = touch.location(in: self)
             spaceship.position = CGPoint(x: touchPosition.x, y: touchPosition.y + self.size.height * 0.07)
         }
+    }
+    
+    func startTimers() {
+        timer1 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(shootFireBall), userInfo: nil, repeats: true)
+        timer2 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addEnemy), userInfo: nil, repeats: true)
+    }
+    
+    func stopTimers() {
+        timer1.invalidate()
+        timer2.invalidate()
     }
 }
 
