@@ -57,13 +57,13 @@ extension GameScene {
     func physicsBody(forNodeWithName name: String) -> SKPhysicsBody? {
         switch name {
         case "spaceship":
-            return SKPhysicsBody(texture: SKTexture(imageNamed: "Spaceship"), size: spaceship.size)
+            return SKPhysicsBody(texture: spaceship.texture!, size: spaceship.size)
         case "fireBall":
             let fireBall = SKSpriteNode(imageNamed: "Sternschuss")
-            return SKPhysicsBody(circleOfRadius: fireBall.size.width / 2) //, center: fireBall.size.center)
+            return SKPhysicsBody(circleOfRadius: fireBall.size.width / 2)
         case "enemy":
             let enemy = SKSpriteNode(imageNamed: "Raumschiff")
-            return SKPhysicsBody(rectangleOf: enemy.size)
+            return SKPhysicsBody(texture: enemy.texture!, size: enemy.size)
         default: return nil
         }
     }

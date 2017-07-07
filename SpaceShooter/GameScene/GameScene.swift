@@ -72,15 +72,19 @@ extension GameScene: SKPhysicsContactDelegate {
             bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
             
             // Explode enemy and fireBall
-            makeSpriteNodeExplode(contact.bodyA.node as! SKSpriteNode)
-            makeSpriteNodeExplode(contact.bodyB.node as! SKSpriteNode)
+            // The method is called once for every contact point. So we need to make sure both nodes still exist, in case an enemy is hit by a fire ball and the spaceship simultanously, which would cause a crash for the second call.
+            guard let explodingNode1 = contact.bodyA.node as? SKSpriteNode,
+                let explodingNode2 = contact.bodyB.node as? SKSpriteNode else { return }
+            makeSpriteNodeExplode(explodingNode1)
+            makeSpriteNodeExplode(explodingNode2)
             
             score += 1
         } else if bodyBitMasks.contains(categoryBitMask(forNodeWithName: "spaceship")!),
             bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
             
             // Explode enemy
-            guard let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }   // The method is called once for every contact point, but all of the below should happen only once
+            // The method is called once for every contact point, but all of the below should happen only once. Otherwise, the app would crash because the enemy would no longer exist. If that crash would be prevented, more than one heart would be removed at one crash.
+            guard let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }
             makeSpriteNodeExplode(explodingNode as! SKSpriteNode)
             
             liveArray.popLast()?.removeFromParent()
