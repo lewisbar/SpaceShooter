@@ -10,13 +10,15 @@ import UIKit
 import SpriteKit
 
 class GameViewController: UIViewController {
+    
+    var scene = GameScene()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let view = self.view as! SKView? {
             
-            let scene = GameScene(size: view.bounds.size)
+            scene = GameScene(size: view.bounds.size)
             view.presentScene(scene)
             
             view.ignoresSiblingOrder = true
