@@ -27,7 +27,7 @@ extension GameScene {
         if let isDynamic = isDynamic(forNodeWithName: name) {
             spriteNode.physicsBody?.isDynamic = isDynamic
         }
-        if let categoryBitMask = categoryBitMask(forNodeWithName: name) {
+        if let categoryBitMask = GameScene.categoryBitMask(forNodeWithName: name) {
             spriteNode.physicsBody?.categoryBitMask = categoryBitMask
         }
         if let contactTestBitMask = contactTestBitMask(forNodeWithName: name) {
@@ -46,6 +46,13 @@ extension GameScene {
         let delete = SKAction.removeFromParent()
         
         enemy.run(SKAction.sequence([moveDown, delete]))
+    }
+    
+    @objc func addWhirl() {
+        let whirl = Whirl()
+        setupNode(whirl, name: "whirl")
+        self.addChild(whirl)
+        whirl.startMoving()
     }
     
     @objc func shootFireBall() {

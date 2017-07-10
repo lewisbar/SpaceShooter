@@ -22,6 +22,7 @@
 		30777D661F0BA6410087218D /* SpaceShooterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30777D651F0BA6410087218D /* SpaceShooterTests.swift */; };
 		30777D6E1F0BBFE10087218D /* Explosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = 30777D6D1F0BBFE10087218D /* Explosion.sks */; };
 		30777D701F0C170E0087218D /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30777D6F1F0C170E0087218D /* GameOverScene.swift */; };
+		307A69E01F1349F6006F7573 /* Whirl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A69DF1F1349F6006F7573 /* Whirl.swift */; };
 		309100621F0F5494004FDCF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4111F03D22400F2828D /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -54,6 +55,7 @@
 		30777D671F0BA6410087218D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		30777D6D1F0BBFE10087218D /* Explosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Explosion.sks; sourceTree = "<group>"; };
 		30777D6F1F0C170E0087218D /* GameOverScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameOverScene.swift; sourceTree = "<group>"; };
+		307A69DF1F1349F6006F7573 /* Whirl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whirl.swift; sourceTree = "<group>"; };
 		308E16EF1F0697D4006C5B2B /* BackgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BackgroundMusic.mp3; sourceTree = "<group>"; };
 		308E16F01F0697D4006C5B2B /* ExplosionSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ExplosionSound.wav; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +104,7 @@
 				30777D6F1F0C170E0087218D /* GameOverScene.swift */,
 				30777D731F0CEFE40087218D /* GameScene */,
 				305AA4291F05806200F2828D /* Assets.xcassets */,
+				307A69DF1F1349F6006F7573 /* Whirl.swift */,
 				305AA4141F03D22400F2828D /* Info.plist */,
 				305AA4021F03D22400F2828D /* AppDelegate.swift */,
 				305AA40C1F03D22400F2828D /* Main.storyboard */,
@@ -260,6 +263,7 @@
 				305AA4091F03D22400F2828D /* GameScene.swift in Sources */,
 				305AA40B1F03D22400F2828D /* GameViewController.swift in Sources */,
 				305AA4031F03D22400F2828D /* AppDelegate.swift in Sources */,
+				307A69E01F1349F6006F7573 /* Whirl.swift in Sources */,
 				30777D5C1F0A8FB00087218D /* GameScene+Helpers.swift in Sources */,
 				305AA4241F057D7B00F2828D /* CGSize+center.swift in Sources */,
 				30777D701F0C170E0087218D /* GameOverScene.swift in Sources */,

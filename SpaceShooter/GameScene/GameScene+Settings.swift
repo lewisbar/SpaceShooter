@@ -17,9 +17,9 @@ extension GameScene {
         case "scoreLabel" : return self.size.center
         case "enemy":
             let enemy = SKSpriteNode(imageNamed: "Raumschiff")
-            let enemyStartX = CGFloat(arc4random_uniform(UInt32(self.size.width - 2 * enemy.size.width))) + enemy.size.width
-            let enemyStartY = self.size.height + enemy.size.height
-            return CGPoint(x: enemyStartX, y: enemyStartY)
+            return randomTopPosition(for: enemy)
+        case "whirl":
+            return randomTopPosition(for: Whirl())
         case "fireBall": return spaceship.position
         case "heart1":
             let heart = SKSpriteNode(imageNamed: "Herz")
@@ -37,6 +37,12 @@ extension GameScene {
         }
     }
     
+    private func randomTopPosition(for node: SKSpriteNode) -> CGPoint {
+        let startX = CGFloat(arc4random_uniform(UInt32(self.size.width - 2 * node.size.width))) + node.size.width
+        let startY = self.size.height + node.size.height
+        return CGPoint(x: startX, y: startY)
+    }
+    
     func zPosition(forNodeWithName name: String) -> CGFloat? {
         switch name {
         case "background": return 0
@@ -44,6 +50,7 @@ extension GameScene {
         case "backgroundEffect": return 1
         case "scoreLabel" : return 1
         case "enemy": return 2
+        case "whirl": return 2
         case "fireBall": return 2
         case "spaceship": return 3
         case "explosion": return 4
@@ -78,20 +85,22 @@ extension GameScene {
         }
     }
     
-    func categoryBitMask(forNodeWithName name: String) -> UInt32? {
+    class func categoryBitMask(forNodeWithName name: String) -> UInt32? {
         switch name {
         case "spaceship": return 0b1
         case "fireBall": return 0b10
         case "enemy": return 0b100
+        case "whirl": return 0b101
         default: return nil
         }
     }
     
     func contactTestBitMask(forNodeWithName name: String) -> UInt32? {
         switch name {
-        case "spaceship": return 0b100 // enemy
-        case "fireBall": return 0b100  // enemy
+        case "spaceship": return 0b100 | 0b101 // enemy or whirl
+        case "fireBall": return 0b100 | 0b101 // enemy or whirl
         case "enemy": return 0b1 | 0b10 // spaceship or fireBall
+        case "whirl": return 0b1 | 0b10 // spaceship or fireBall
         default: return nil
         }
     }

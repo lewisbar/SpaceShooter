@@ -27,6 +27,7 @@ class GameScene: SKScene {
     // Timers
     var timer1 = Timer()
     var timer2 = Timer()
+    var whirlTimer = Timer()
     
     // Score
     var score = 0 {
@@ -73,39 +74,36 @@ extension GameScene {
     func startTimers() {
         timer1 = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(shootFireBall), userInfo: nil, repeats: true)
         timer2 = Timer.scheduledTimer(timeInterval: 1, target: self, selector: #selector(addEnemy), userInfo: nil, repeats: true)
+        whirlTimer = Timer.scheduledTimer(timeInterval: 5.6, target: self, selector: #selector(addWhirl), userInfo: nil, repeats: true)
     }
     
     func stopTimers() {
         timer1.invalidate()
         timer2.invalidate()
+        whirlTimer.invalidate()
     }
 }
 
-// MARK: Contact
+// MARK: - Contact
 extension GameScene: SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         
-        let bodyBitMasks = [contact.bodyA.categoryBitMask, contact.bodyB.categoryBitMask]
+        if contact.isContactOf("fireBall", "enemy") {
         
-        if bodyBitMasks.contains(categoryBitMask(forNodeWithName: "fireBall")!),
-            bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
-            
             // Explode enemy and fireBall
-            // The method is called once for every contact point. So we need to make sure both nodes still exist, in case an enemy is hit by a fire ball and the spaceship simultanously, which would cause a crash for the second call.
             guard let explodingNode1 = contact.bodyA.node as? SKSpriteNode,
                 let explodingNode2 = contact.bodyB.node as? SKSpriteNode else { return }
             makeSpriteNodeExplode(explodingNode1)
             makeSpriteNodeExplode(explodingNode2)
             
             score += 1
-        } else if bodyBitMasks.contains(categoryBitMask(forNodeWithName: "spaceship")!),
-            bodyBitMasks.contains(categoryBitMask(forNodeWithName: "enemy")!) {
+        } else if contact.isContactOf("spaceship", "enemy") {
             
             // Explode enemy
-            // The method is called once for every contact point, but all of the below should happen only once. Otherwise, the app would crash because the enemy would no longer exist. If that crash would be prevented, more than one heart would be removed at one crash.
             guard let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }
             makeSpriteNodeExplode(explodingNode as! SKSpriteNode)
             
+            // Substract life
             liveArray.popLast()?.removeFromParent()
             
             if liveArray.isEmpty {
@@ -116,6 +114,24 @@ extension GameScene: SKPhysicsContactDelegate {
                 for heart in liveArray {
                     makeSpriteNodeFlash(heart)
                 }
+            }
+        } else if contact.isContactOf("fireBall", "whirl") {
+            guard let fireBall = (contact.bodyA.node?.name == "fireBall") ? contact.bodyA.node : contact.bodyB.node,
+            let whirlNode = (contact.bodyA.node?.name == "whirl") ? contact.bodyA.node : contact.bodyB.node
+                else { return }
+            let whirl = whirlNode as! Whirl
+            
+            makeSpriteNodeExplode(fireBall as! SKSpriteNode)
+            
+            whirl.health -= 1
+            if whirl.health > 0 {
+                makeSpriteNodeFlash(whirl)
+                if whirl.shape == Whirl.Shape.folded {
+                    whirl.unfold()
+                }
+            } else {
+                makeSpriteNodeExplode(whirl)
+                score += 5
             }
         }
     }
@@ -151,5 +167,13 @@ extension GameScene: SKPhysicsContactDelegate {
     
     func makeSpriteNodeFlash(_ node: SKSpriteNode) {
         node.run(SKAction.repeat(SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]), count: 10))
+    }
+}
+
+extension SKPhysicsContact {
+    func isContactOf(_ node1: String, _ node2: String) -> Bool {
+        let bodyBitMasks = [bodyA.categoryBitMask, bodyB.categoryBitMask]
+        
+        return bodyBitMasks.contains(GameScene.categoryBitMask(forNodeWithName: node1)!) && bodyBitMasks.contains(GameScene.categoryBitMask(forNodeWithName: node2)!)
     }
 }
