@@ -9,6 +9,14 @@
 import SpriteKit
 
 extension GameScene {
+    
+    struct BitMasks {
+        static let spaceship: UInt32 = 0b1
+        static let fireBall: UInt32 = 0b10
+        static let enemy: UInt32 = 0b100
+        static let whirl: UInt32 = 0b101
+    }
+    
     func startPosition(forNodeWithName name: String) -> CGPoint? {
         switch name {
         case "background": return self.size.center
@@ -70,7 +78,7 @@ extension GameScene {
             return SKPhysicsBody(circleOfRadius: fireBall.size.width / 2)
         case "enemy":
             let enemy = SKSpriteNode(imageNamed: "Raumschiff")
-            return SKPhysicsBody(texture: enemy.texture!, size: enemy.size)
+            return SKPhysicsBody(texture: enemy.texture!, size: enemy.size)            
         default: return nil
         }
     }
@@ -87,21 +95,48 @@ extension GameScene {
     
     class func categoryBitMask(forNodeWithName name: String) -> UInt32? {
         switch name {
-        case "spaceship": return 0b1
-        case "fireBall": return 0b10
-        case "enemy": return 0b100
-        case "whirl": return 0b101
+        case "spaceship": return BitMasks.spaceship
+        case "fireBall": return BitMasks.fireBall
+        case "enemy": return BitMasks.enemy
+        case "whirl": return BitMasks.whirl
         default: return nil
         }
     }
     
     func contactTestBitMask(forNodeWithName name: String) -> UInt32? {
         switch name {
-        case "spaceship": return 0b100 | 0b101 // enemy or whirl
-        case "fireBall": return 0b100 | 0b101 // enemy or whirl
-        case "enemy": return 0b1 | 0b10 // spaceship or fireBall
-        case "whirl": return 0b1 | 0b10 // spaceship or fireBall
+        case "spaceship": return BitMasks.enemy | BitMasks.whirl
+        case "fireBall": return BitMasks.enemy | BitMasks.whirl
+        case "enemy": return BitMasks.spaceship | BitMasks.fireBall
+        case "whirl": return BitMasks.spaceship | BitMasks.fireBall
         default: return nil
         }
+    }
+    
+    func collisionBitMask(forNodeWithName name: String) -> UInt32? {
+        switch name {
+        case "spaceship": return BitMasks.whirl
+        case "fireBall": return 0
+        case "enemy": return 0
+        case "whirl": return BitMasks.spaceship
+        default: return nil
+        }
+    }
+    
+    func physics(forNodeWithName name: String) -> SKPhysicsBody? {
+        guard let body = physicsBody(forNodeWithName: name)
+            else { return nil }
+        
+        if let isDynamic = isDynamic(forNodeWithName: name) {
+            body.isDynamic = isDynamic
+        }
+        if let categoryBitMask = GameScene.categoryBitMask(forNodeWithName: name) {
+            body.categoryBitMask = categoryBitMask
+        }
+        if let contactTestBitMask = contactTestBitMask(forNodeWithName: name) {
+            body.contactTestBitMask = contactTestBitMask
+        }
+        
+        return body
     }
 }

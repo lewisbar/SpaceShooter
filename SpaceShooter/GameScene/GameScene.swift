@@ -46,6 +46,8 @@ class GameScene: SKScene {
             }
         }
     }
+    
+    var spaceshipIsVulnerable = true
 }
 
 // MARK: - Touches
@@ -86,6 +88,34 @@ extension GameScene {
 
 // MARK: - Contact
 extension GameScene: SKPhysicsContactDelegate {
+    fileprivate func hitWhirl(_ whirl: Whirl) {
+        whirl.health -= 1
+        if whirl.health > 0 {
+            makeSpriteNodeFlash(whirl)
+            if whirl.shape == Whirl.Shape.folded {
+                whirl.unfold()
+            }
+        } else {
+            makeSpriteNodeExplode(whirl)
+            score += 5
+        }
+    }
+    
+    fileprivate func hitSpaceship() {
+        // Substract life
+        liveArray.popLast()?.removeFromParent()
+        
+        if liveArray.isEmpty {
+            gameOver()
+        } else {
+            makeSpriteNodeFlash(spaceship)
+            // TODO: Spaceship should be invulnerable while flashing
+            for heart in liveArray {
+                makeSpriteNodeFlash(heart)
+            }
+        }
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         
         if contact.isContactOf("fireBall", "enemy") {
@@ -103,18 +133,7 @@ extension GameScene: SKPhysicsContactDelegate {
             guard let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }
             makeSpriteNodeExplode(explodingNode as! SKSpriteNode)
             
-            // Substract life
-            liveArray.popLast()?.removeFromParent()
-            
-            if liveArray.isEmpty {
-                gameOver()
-            } else {
-                makeSpriteNodeFlash(spaceship)
-                // TODO: Spaceship should be invulnerable while flashing
-                for heart in liveArray {
-                    makeSpriteNodeFlash(heart)
-                }
-            }
+            hitSpaceship()
         } else if contact.isContactOf("fireBall", "whirl") {
             guard let fireBall = (contact.bodyA.node?.name == "fireBall") ? contact.bodyA.node : contact.bodyB.node,
             let whirlNode = (contact.bodyA.node?.name == "whirl") ? contact.bodyA.node : contact.bodyB.node
@@ -122,17 +141,30 @@ extension GameScene: SKPhysicsContactDelegate {
             let whirl = whirlNode as! Whirl
             
             makeSpriteNodeExplode(fireBall as! SKSpriteNode)
-            
-            whirl.health -= 1
-            if whirl.health > 0 {
-                makeSpriteNodeFlash(whirl)
-                if whirl.shape == Whirl.Shape.folded {
-                    whirl.unfold()
+            hitWhirl(whirl)
+        } else if contact.isContactOf("spaceship", "whirl") {
+            guard spaceshipIsVulnerable,
+                let _ = (contact.bodyA.node?.name == "spaceship") ? contact.bodyA.node : contact.bodyB.node,
+                let whirlNode = (contact.bodyA.node?.name == "whirl") ? contact.bodyA.node : contact.bodyB.node
+                else { return }
+            let whirl = whirlNode as! Whirl
+            print("\n\nSpaceship hits whirl\n\n")
+            hitWhirl(whirl)
+            hitSpaceship()
+            spaceshipIsVulnerable = false
+        }
+    }
+    // TODO: Make spaceship invulnerable while flashing?
+    func didEnd(_ contact: SKPhysicsContact) {
+        if contact.isContactOf("spaceship", "whirl") {
+            if let bodies = spaceship.physicsBody?.allContactedBodies() {
+                for body in bodies {
+                    if body.node?.name == "whirl" {
+                        return
+                    }
                 }
-            } else {
-                makeSpriteNodeExplode(whirl)
-                score += 5
             }
+            spaceshipIsVulnerable = true
         }
     }
     

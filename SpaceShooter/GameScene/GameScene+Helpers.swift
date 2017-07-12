@@ -33,6 +33,9 @@ extension GameScene {
         if let contactTestBitMask = contactTestBitMask(forNodeWithName: name) {
             spriteNode.physicsBody?.contactTestBitMask = contactTestBitMask
         }
+        if let collisionBitMask = collisionBitMask(forNodeWithName: name) {
+            spriteNode.physicsBody?.collisionBitMask = collisionBitMask
+        }
     }
     
     @objc func addEnemy() {
