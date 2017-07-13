@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-class Whirl: SKSpriteNode {
+class Whirl: SKSpriteNode, SpaceSprite {
     var health = 5
     let textureAtlas = SKTextureAtlas(named: "Whirl")
     var shape: Shape = .folded
@@ -22,7 +22,7 @@ class Whirl: SKSpriteNode {
     init() {
         let texture = SKTexture(imageNamed: "Whirl Folded")
         super.init(texture: texture, color: .clear, size: texture.size())
-        physicsBody = SKPhysicsBody(texture: self.texture!, size: (self.texture?.size())!) // circleOfRadius: size.width / 2)
+        physicsBody = SKPhysicsBody(texture: texture, size: texture.size()) // circleOfRadius: size.width / 2)
     }
     
     required init(coder aDecoder: NSCoder) {
@@ -42,8 +42,6 @@ class Whirl: SKSpriteNode {
         let deleteWhenLeaving = SKAction.perform(#selector(deleteWhenLeavingScreen), onTarget: self)
         let wiggle = SKAction.sequence([moveDownAndLeft, moveDownAndRight, deleteWhenLeaving])
         run(SKAction.repeatForever(wiggle), withKey: "wiggle")
-        
-        //TODO: Delete when leaving the screen
     }
     
     @objc func deleteWhenLeavingScreen() {
@@ -54,11 +52,11 @@ class Whirl: SKSpriteNode {
     
     func unfold() {
         shape = .changing
-        let textureAtlas = SKTextureAtlas(named: "Whirl")
+        
+        // let textureAtlas = SKTextureAtlas(named: "Whirl")
         let frames = ["Whirl Folded", "Whirl Almost Folded", "Whirl Almost Unfolded", "Whirl Unfolded"].map { textureAtlas.textureNamed($0) }
         animate(with: frames, timePerFrame: 0.3)
-//        let unfold = SKAction.animate(with: frames, timePerFrame: 2)
-//        self.run(unfold)
+
         shape = .unfolded
     }
     

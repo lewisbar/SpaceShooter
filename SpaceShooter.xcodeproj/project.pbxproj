@@ -24,6 +24,10 @@
 		30777D701F0C170E0087218D /* GameOverScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30777D6F1F0C170E0087218D /* GameOverScene.swift */; };
 		307A69E01F1349F6006F7573 /* Whirl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 307A69DF1F1349F6006F7573 /* Whirl.swift */; };
 		309100621F0F5494004FDCF2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 305AA4111F03D22400F2828D /* LaunchScreen.storyboard */; };
+		30AD1E331F17A14800751DB5 /* Spaceship.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AD1E321F17A14800751DB5 /* Spaceship.swift */; };
+		30AD1E351F17A64A00751DB5 /* FireBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AD1E341F17A64A00751DB5 /* FireBall.swift */; };
+		30AD1E371F17A6C900751DB5 /* Enemy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AD1E361F17A6C900751DB5 /* Enemy.swift */; };
+		30AD1E391F17C93A00751DB5 /* SpaceSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30AD1E381F17C93A00751DB5 /* SpaceSprite.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +62,10 @@
 		307A69DF1F1349F6006F7573 /* Whirl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Whirl.swift; sourceTree = "<group>"; };
 		308E16EF1F0697D4006C5B2B /* BackgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BackgroundMusic.mp3; sourceTree = "<group>"; };
 		308E16F01F0697D4006C5B2B /* ExplosionSound.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = ExplosionSound.wav; sourceTree = "<group>"; };
+		30AD1E321F17A14800751DB5 /* Spaceship.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Spaceship.swift; path = SpaceShooter/Spaceship.swift; sourceTree = SOURCE_ROOT; };
+		30AD1E341F17A64A00751DB5 /* FireBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FireBall.swift; sourceTree = "<group>"; };
+		30AD1E361F17A6C900751DB5 /* Enemy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enemy.swift; sourceTree = "<group>"; };
+		30AD1E381F17C93A00751DB5 /* SpaceSprite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceSprite.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +112,10 @@
 				30777D6F1F0C170E0087218D /* GameOverScene.swift */,
 				30777D731F0CEFE40087218D /* GameScene */,
 				305AA4291F05806200F2828D /* Assets.xcassets */,
+				30AD1E381F17C93A00751DB5 /* SpaceSprite.swift */,
+				30AD1E321F17A14800751DB5 /* Spaceship.swift */,
+				30AD1E341F17A64A00751DB5 /* FireBall.swift */,
+				30AD1E361F17A6C900751DB5 /* Enemy.swift */,
 				307A69DF1F1349F6006F7573 /* Whirl.swift */,
 				305AA4141F03D22400F2828D /* Info.plist */,
 				305AA4021F03D22400F2828D /* AppDelegate.swift */,
@@ -258,12 +270,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				30AD1E391F17C93A00751DB5 /* SpaceSprite.swift in Sources */,
 				30777D5E1F0A91480087218D /* GameScene+Setup.swift in Sources */,
 				30777D5A1F0A8C170087218D /* GameScene+Settings.swift in Sources */,
 				305AA4091F03D22400F2828D /* GameScene.swift in Sources */,
 				305AA40B1F03D22400F2828D /* GameViewController.swift in Sources */,
+				30AD1E331F17A14800751DB5 /* Spaceship.swift in Sources */,
 				305AA4031F03D22400F2828D /* AppDelegate.swift in Sources */,
+				30AD1E351F17A64A00751DB5 /* FireBall.swift in Sources */,
 				307A69E01F1349F6006F7573 /* Whirl.swift in Sources */,
+				30AD1E371F17A6C900751DB5 /* Enemy.swift in Sources */,
 				30777D5C1F0A8FB00087218D /* GameScene+Helpers.swift in Sources */,
 				305AA4241F057D7B00F2828D /* CGSize+center.swift in Sources */,
 				30777D701F0C170E0087218D /* GameOverScene.swift in Sources */,

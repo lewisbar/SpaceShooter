@@ -31,6 +31,7 @@ extension GameScene {
         setupNode(spaceship, name: "spaceship")
         spaceship.setScale(0.2)
         self.addChild(spaceship)
+        spaceship.delegate = self
         
         // Pause Background and Label
         let pauseColor = SKColor(red: 0, green: 0, blue: 0, alpha: 0.8)
@@ -50,7 +51,7 @@ extension GameScene {
         prepareMusic()
         
         // Lives
-        addLives(3)
+        addHealthPoints(spaceship.health)
         
         // Shoot
         shootFireBall()

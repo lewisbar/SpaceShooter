@@ -69,29 +69,29 @@ extension GameScene {
         }
     }
     
-    func physicsBody(forNodeWithName name: String) -> SKPhysicsBody? {
-        switch name {
-        case "spaceship":
-            return SKPhysicsBody(texture: spaceship.texture!, size: spaceship.size)
-        case "fireBall":
-            let fireBall = SKSpriteNode(imageNamed: "Sternschuss")
-            return SKPhysicsBody(circleOfRadius: fireBall.size.width / 2)
-        case "enemy":
-            let enemy = SKSpriteNode(imageNamed: "Raumschiff")
-            return SKPhysicsBody(texture: enemy.texture!, size: enemy.size)            
-        default: return nil
-        }
-    }
-    
-    func isDynamic(forNodeWithName name: String) -> Bool? {
-        switch name {
-        case "spaceship": return false
-        case "fireBall": return false
-        case "enemy": return true
-        // case "heart1", "heart2", "heart3": return false
-        default: return nil
-        }
-    }
+//    func physicsBody(forNodeWithName name: String) -> SKPhysicsBody? {
+//        switch name {
+//        case "spaceship":
+//            return SKPhysicsBody(texture: spaceship.texture!, size: spaceship.size)
+//        case "fireBall":
+//            let fireBall = SKSpriteNode(imageNamed: "Sternschuss")
+//            return SKPhysicsBody(circleOfRadius: fireBall.size.width / 2)
+//        case "enemy":
+//            let enemy = SKSpriteNode(imageNamed: "Raumschiff")
+//            return SKPhysicsBody(texture: enemy.texture!, size: enemy.size)
+//        default: return nil
+//        }
+//    }
+//
+//    func isDynamic(forNodeWithName name: String) -> Bool? {
+//        switch name {
+//        case "spaceship": return false
+//        case "fireBall": return false
+//        case "enemy": return true
+//        // case "heart1", "heart2", "heart3": return false
+//        default: return nil
+//        }
+//    }
     
     class func categoryBitMask(forNodeWithName name: String) -> UInt32? {
         switch name {
@@ -115,28 +115,28 @@ extension GameScene {
     
     func collisionBitMask(forNodeWithName name: String) -> UInt32? {
         switch name {
-        case "spaceship": return BitMasks.whirl
+        case "spaceship": return BitMasks.whirl | BitMasks.enemy
         case "fireBall": return 0
-        case "enemy": return 0
+        case "enemy": return BitMasks.spaceship
         case "whirl": return BitMasks.spaceship
         default: return nil
         }
     }
     
-    func physics(forNodeWithName name: String) -> SKPhysicsBody? {
-        guard let body = physicsBody(forNodeWithName: name)
-            else { return nil }
-        
-        if let isDynamic = isDynamic(forNodeWithName: name) {
-            body.isDynamic = isDynamic
-        }
-        if let categoryBitMask = GameScene.categoryBitMask(forNodeWithName: name) {
-            body.categoryBitMask = categoryBitMask
-        }
-        if let contactTestBitMask = contactTestBitMask(forNodeWithName: name) {
-            body.contactTestBitMask = contactTestBitMask
-        }
-        
-        return body
-    }
+//    func physics(forNodeWithName name: String) -> SKPhysicsBody? {
+//        guard let body = physicsBody(forNodeWithName: name)
+//            else { return nil }
+//        
+//        if let isDynamic = isDynamic(forNodeWithName: name) {
+//            body.isDynamic = isDynamic
+//        }
+//        if let categoryBitMask = GameScene.categoryBitMask(forNodeWithName: name) {
+//            body.categoryBitMask = categoryBitMask
+//        }
+//        if let contactTestBitMask = contactTestBitMask(forNodeWithName: name) {
+//            body.contactTestBitMask = contactTestBitMask
+//        }
+//        
+//        return body
+//    }
 }

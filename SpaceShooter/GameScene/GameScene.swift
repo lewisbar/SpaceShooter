@@ -10,19 +10,29 @@ import SpriteKit
 import AVFoundation
 
 // MARK: - Properties
-class GameScene: SKScene {
+class GameScene: SKScene, SpaceshipLifeCountDelegate {
+    func healthPointsChanged(to health: Int) {
+        let heartCount = lifeArray.count
+        while heartCount > health {
+            lifeArray.popLast()?.removeFromParent()
+        }
+        if heartCount < health {
+            addHealthPoints(health - heartCount)
+        }
+    }
+    
     // Nodes
     let background = SKSpriteNode(imageNamed: "BackgroundImage")
     let background2 = SKSpriteNode(imageNamed: "BackgroundImage")
     let backgroundEffect = SKEmitterNode(fileNamed: "BackgroundEffect")!
-    let spaceship = SKSpriteNode(imageNamed: "Spaceship")
+    let spaceship = Spaceship()
     
     // Sound
     var musicPlayer: AVAudioPlayer?
     
     // Lives
-    var liveCount = 0
-    var liveArray = [SKSpriteNode]()
+    // var lifeCount = 0
+    var lifeArray = [SKSpriteNode]()
     
     // Timers
     var timer1 = Timer()
@@ -91,7 +101,7 @@ extension GameScene: SKPhysicsContactDelegate {
     fileprivate func hitWhirl(_ whirl: Whirl) {
         whirl.health -= 1
         if whirl.health > 0 {
-            makeSpriteNodeFlash(whirl)
+            makeSpriteNodeFlash(whirl, count: 4, invulnerable: true)
             if whirl.shape == Whirl.Shape.folded {
                 whirl.unfold()
             }
@@ -103,15 +113,15 @@ extension GameScene: SKPhysicsContactDelegate {
     
     fileprivate func hitSpaceship() {
         // Substract life
-        liveArray.popLast()?.removeFromParent()
+        // lifeArray.popLast()?.removeFromParent()
+        spaceship.health -= 1
         
-        if liveArray.isEmpty {
+        if spaceship.health <= 0 { // lifeArray.isEmpty {
             gameOver()
         } else {
-            makeSpriteNodeFlash(spaceship)
-            // TODO: Spaceship should be invulnerable while flashing
-            for heart in liveArray {
-                makeSpriteNodeFlash(heart)
+            makeSpriteNodeFlash(spaceship, count: 10, invulnerable: true)
+            for heart in lifeArray {
+                makeSpriteNodeFlash(heart, count: 10)
             }
         }
     }
@@ -130,10 +140,12 @@ extension GameScene: SKPhysicsContactDelegate {
         } else if contact.isContactOf("spaceship", "enemy") {
             
             // Explode enemy
-            guard let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }
+            guard spaceshipIsVulnerable,
+                let explodingNode = (contact.bodyA.node?.name == "enemy") ? contact.bodyA.node : contact.bodyB.node else { return }
             makeSpriteNodeExplode(explodingNode as! SKSpriteNode)
             
             hitSpaceship()
+            spaceshipIsVulnerable = false
         } else if contact.isContactOf("fireBall", "whirl") {
             guard let fireBall = (contact.bodyA.node?.name == "fireBall") ? contact.bodyA.node : contact.bodyB.node,
             let whirlNode = (contact.bodyA.node?.name == "whirl") ? contact.bodyA.node : contact.bodyB.node
@@ -148,7 +160,7 @@ extension GameScene: SKPhysicsContactDelegate {
                 let whirlNode = (contact.bodyA.node?.name == "whirl") ? contact.bodyA.node : contact.bodyB.node
                 else { return }
             let whirl = whirlNode as! Whirl
-            print("\n\nSpaceship hits whirl\n\n")
+            print("Spaceship hits whirl")
             hitWhirl(whirl)
             hitSpaceship()
             spaceshipIsVulnerable = false
@@ -160,6 +172,15 @@ extension GameScene: SKPhysicsContactDelegate {
             if let bodies = spaceship.physicsBody?.allContactedBodies() {
                 for body in bodies {
                     if body.node?.name == "whirl" {
+                        return
+                    }
+                }
+            }
+            spaceshipIsVulnerable = true
+        } else if contact.isContactOf("spaceship", "enemy") {
+            if let bodies = spaceship.physicsBody?.allContactedBodies() {
+                for body in bodies {
+                    if body.node?.name == "enemy" {
                         return
                     }
                 }
@@ -197,8 +218,16 @@ extension GameScene: SKPhysicsContactDelegate {
         }
     }
     
-    func makeSpriteNodeFlash(_ node: SKSpriteNode) {
-        node.run(SKAction.repeat(SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]), count: 10))
+    func makeSpriteNodeFlash(_ node: SKSpriteNode, count: Int, invulnerable: Bool = false) {
+//        let oldMask = node.physicsBody?.contactTestBitMask
+//        if invulnerable {
+//            node.physicsBody?.contactTestBitMask = 0b0
+//        }
+        node.run(SKAction.repeat(SKAction.sequence([SKAction.fadeAlpha(to: 0.1, duration: 0.1), SKAction.fadeAlpha(to: 1, duration: 0.1)]), count: count)) /*{
+            if let oldMask = oldMask {
+                node.physicsBody?.contactTestBitMask = oldMask
+            }
+        }*/
     }
 }
 

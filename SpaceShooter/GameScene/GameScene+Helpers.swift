@@ -21,12 +21,12 @@ extension GameScene {
         
         guard let spriteNode = node as? SKSpriteNode else { return }
         
-        if let physicsBody = physicsBody(forNodeWithName: name) {
-            spriteNode.physicsBody = physicsBody
-        }
-        if let isDynamic = isDynamic(forNodeWithName: name) {
-            spriteNode.physicsBody?.isDynamic = isDynamic
-        }
+//        if let physicsBody = physicsBody(forNodeWithName: name) {
+//            spriteNode.physicsBody = physicsBody
+//        }
+//        if let isDynamic = isDynamic(forNodeWithName: name) {
+//            spriteNode.physicsBody?.isDynamic = isDynamic
+//        }
         if let categoryBitMask = GameScene.categoryBitMask(forNodeWithName: name) {
             spriteNode.physicsBody?.categoryBitMask = categoryBitMask
         }
@@ -39,7 +39,7 @@ extension GameScene {
     }
     
     @objc func addEnemy() {
-        let enemy = SKSpriteNode(imageNamed: "Raumschiff")
+        let enemy = Enemy() // SKSpriteNode(imageNamed: "Raumschiff")
         setupNode(enemy, name: "enemy")
         enemy.zRotation = .pi   // Upside down
         self.addChild(enemy)
@@ -59,23 +59,20 @@ extension GameScene {
     }
     
     @objc func shootFireBall() {
-        let fireBall = SKSpriteNode(imageNamed: "Sternschuss")
+        let fireBall = FireBall() // SKSpriteNode(imageNamed: "Sternschuss")
         setupNode(fireBall, name: "fireBall")
         self.addChild(fireBall)
         
         // Action
-        let shoot = SKAction.moveTo(y: self.size.height + fireBall.size.height, duration: 1)
-        let removeFireBall = SKAction.removeFromParent()
-        let fireSequence = SKAction.sequence([shoot, removeFireBall])
-        
-        fireBall.run(fireSequence)
+        let aim = CGPoint(x: fireBall.position.x ,y: self.size.height + fireBall.size.height)
+        fireBall.shoot(at: aim)
     }
     
-    func addLives(_ liveCount: Int) {
-        for index in 1...liveCount {
+    func addHealthPoints(_ health: Int) {
+        for index in 1...health {
             let heart = SKSpriteNode(imageNamed: "Herz")
             setupNode(heart, name: "heart\(index)")
-            liveArray.append(heart)
+            lifeArray.append(heart)
             self.addChild(heart)
         }
     }
